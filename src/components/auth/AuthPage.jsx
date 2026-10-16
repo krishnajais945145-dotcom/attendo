@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { LoginForm } from './LoginForm'
 import { SignupForm } from './SignupForm'
 import { ForgotPasswordModal } from './ForgotPasswordModal'
+import { ResetPasswordModal } from './ResetPasswordModal'
+import { useAuth } from '../../context/AuthContext'
 import { ThemeToggle } from '../common/ThemeToggle'
 import { GraduationCap, Sparkles, Layers, ShieldCheck, Clock, CheckCircle2 } from 'lucide-react'
 
 export function AuthPage() {
   const [isLogin, setIsLogin] = useState(true)
   const [showForgotModal, setShowForgotModal] = useState(false)
+  const { isRecoveryMode, setIsRecoveryMode } = useAuth()
 
   return (
     <div className="min-h-screen relative overflow-x-hidden flex flex-col justify-between transition-colors duration-300 font-sans">
@@ -145,6 +148,12 @@ export function AuthPage() {
       <ForgotPasswordModal
         isOpen={showForgotModal}
         onClose={() => setShowForgotModal(false)}
+      />
+
+      {/* Set New Password Modal (via Email Reset Link) */}
+      <ResetPasswordModal
+        isOpen={isRecoveryMode}
+        onClose={() => setIsRecoveryMode(false)}
       />
     </div>
   )

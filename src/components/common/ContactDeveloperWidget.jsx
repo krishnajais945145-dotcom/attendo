@@ -3,18 +3,18 @@ import { Mail, Copy, Check, MessageSquare, X, Send, ShieldCheck } from 'lucide-r
 
 export function ContactDeveloperWidget() {
   const [isOpen, setIsOpen] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [copiedEmail, setCopiedEmail] = useState(null)
   const [isHovered, setIsHovered] = useState(false)
-  const devEmail = 'krishnajais945145@gmail.com'
+  const devEmails = ['krishnajais945145@gmail.com', 'rummerblaze07@gmail.com']
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(devEmail)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2200)
+  const handleCopy = (email) => {
+    navigator.clipboard.writeText(email)
+    setCopiedEmail(email)
+    setTimeout(() => setCopiedEmail(null), 2200)
   }
 
   const handleMailto = (subject = 'Attendo Inquiry / Feedback') => {
-    window.location.href = `mailto:${devEmail}?subject=${encodeURIComponent(subject)}`
+    window.location.href = `mailto:${devEmails.join(',')}?subject=${encodeURIComponent(subject)}`
   }
 
   return (
@@ -30,11 +30,11 @@ export function ContactDeveloperWidget() {
               </div>
               <div>
                 <h4 className="text-sm font-bold text-[#1d1d1f] dark:text-white tracking-tight flex items-center gap-2">
-                  System Administrator
+                  System Administrators
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 </h4>
                 <p className="text-[11px] font-medium text-[#86868b] dark:text-slate-400">
-                  Lead Developer &bull; Attendo Support
+                  Lead Developers &bull; Attendo Support
                 </p>
               </div>
             </div>
@@ -51,43 +51,47 @@ export function ContactDeveloperWidget() {
           {/* Card Content */}
           <div className="py-3.5 space-y-3">
             <p className="text-xs text-[#515154] dark:text-slate-300 leading-relaxed">
-              Have feedback, bug reports, or need custom branch features? Connect directly with the administrator:
+              Have feedback, bug reports, or need custom branch features? Connect directly with the developers:
             </p>
 
             {/* Email Box */}
-            <div className="p-3 rounded-2xl bg-[#f5f5f7] dark:bg-[#0c0d12] border border-black/[0.06] dark:border-white/[0.08] flex flex-col gap-2">
+            <div className="p-3 rounded-2xl bg-[#f5f5f7] dark:bg-[#0c0d12] border border-black/[0.06] dark:border-white/[0.08] flex flex-col gap-2.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#86868b] dark:text-slate-400 flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-[#0091ff] dark:text-[#ffa043]" />
-                  Administrator Email
+                  Administrator Emails
                 </span>
                 <span className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
                   Verified
                 </span>
               </div>
 
-              <div className="flex items-center justify-between gap-2 pt-0.5">
-                <span className="text-xs font-mono font-bold text-[#1d1d1f] dark:text-sky-300 truncate" title={devEmail}>
-                  {devEmail}
-                </span>
+              <div className="space-y-1.5 pt-0.5">
+                {devEmails.map((email) => (
+                  <div key={email} className="flex items-center justify-between gap-2 p-2 rounded-xl bg-white dark:bg-[#1a1b22] border border-black/[0.05] dark:border-white/[0.06]">
+                    <span className="text-xs font-mono font-medium text-[#1d1d1f] dark:text-sky-300 truncate" title={email}>
+                      {email}
+                    </span>
 
-                <button
-                  onClick={handleCopy}
-                  className="px-2.5 py-1 rounded-xl bg-white dark:bg-[#1a1b22] hover:bg-black/[0.04] dark:hover:bg-white/[0.08] text-[#1d1d1f] dark:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition border border-black/[0.08] dark:border-white/[0.08] shrink-0 cursor-pointer shadow-2xs"
-                  title="Copy email to clipboard"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                      <span className="text-emerald-600 dark:text-emerald-400 text-[11px]">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5 text-[#86868b] dark:text-slate-300" />
-                      <span className="text-[11px]">Copy</span>
-                    </>
-                  )}
-                </button>
+                    <button
+                      onClick={() => handleCopy(email)}
+                      className="px-2.5 py-1 rounded-lg bg-[#f5f5f7] dark:bg-[#252733] hover:bg-black/[0.06] dark:hover:bg-white/[0.1] text-[#1d1d1f] dark:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition border border-black/[0.06] dark:border-white/[0.08] shrink-0 cursor-pointer shadow-2xs"
+                      title={`Copy ${email} to clipboard`}
+                    >
+                      {copiedEmail === email ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <span className="text-emerald-600 dark:text-emerald-400 text-[11px]">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-[#86868b] dark:text-slate-300" />
+                          <span className="text-[11px]">Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -98,7 +102,7 @@ export function ContactDeveloperWidget() {
                 className="mac-btn-primary w-full py-2.5 px-3 text-xs font-bold inline-flex items-center justify-center gap-1.5 transition shadow-xs cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>Send Email</span>
+                <span>Email Team</span>
               </button>
 
               <button

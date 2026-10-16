@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { dataService } from '../services/dataService'
+import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 const AuthContext = createContext(null)
 
@@ -7,6 +8,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [toast, setToast] = useState(null)
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false)
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type, id: Date.now() })
@@ -16,6 +18,26 @@ export function AuthProvider({ children }) {
   }
 
   const dismissToast = () => setToast(null)
+
+  useEffect(() => {
+    // Check if URL hash contains Supabase recovery access_token
+    const hash = window.location.hash || ''
+    const path = window.location.pathname || ''
+    if (hash.includes('type=recovery') || path.includes('reset-password')) {
+      setIsRecoveryMode(true)
+    }
+
+    if (isSupabaseConfigured && supabase) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'PASSWORD_RECOVERY') {
+          setIsRecoveryMode(true)
+        }
+      })
+      return () => {
+        subscription?.unsubscribe()
+      }
+    }
+  }, [])
 
   useEffect(() => {
     async function loadUser() {
@@ -87,6 +109,20 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const updatePassword = async (newPassword) => {
+    try {
+      await dataService.updateUserPassword(newPassword)
+      setIsRecoveryMode(false)
+      showToast('Password updated successfully! You can now log in.', 'success')
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname)
+      }
+    } catch (error) {
+      showToast(error.message || 'Failed to update password.', 'error')
+      throw error
+    }
+  }
+
   const updateProfile = async (updates) => {
     try {
       const updated = await dataService.updateProfile(updates)
@@ -108,6 +144,9 @@ export function AuthProvider({ children }) {
         signup,
         logout,
         resetPassword,
+        updatePassword,
+        isRecoveryMode,
+        setIsRecoveryMode,
         updateProfile,
         toast,
         showToast,

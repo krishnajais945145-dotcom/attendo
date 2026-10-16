@@ -118,21 +118,26 @@ export function Sidebar({ activeTab, setActiveTab, mobileOpen, onCloseMobile, ov
 
         {/* Contact Developer Card in Sidebar corner */}
         <div className="mt-2.5 p-3 rounded-xl bg-white dark:bg-[#121318] border border-black/[0.08] dark:border-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7] shadow-xs">
-          <div className="flex items-center justify-between text-xs mb-1">
+          <div className="flex items-center justify-between text-xs mb-1.5">
             <span className="text-[11px] font-bold text-[#1d1d1f] dark:text-sky-300 flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-[#1d1d1f] dark:text-sky-400" />
-              Contact Developer
+              Contact Developers
             </span>
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
           </div>
-          <p className="text-[10px] text-[#86868b] dark:text-slate-400 font-mono truncate select-all" title="krishnajais945145@gmail.com">
-            krishnajais945145@gmail.com
-          </p>
+          <div className="space-y-1">
+            <p className="text-[10px] text-[#86868b] dark:text-slate-400 font-mono truncate select-all" title="krishnajais945145@gmail.com">
+              krishnajais945145@gmail.com
+            </p>
+            <p className="text-[10px] text-[#86868b] dark:text-slate-400 font-mono truncate select-all" title="rummerblaze07@gmail.com">
+              rummerblaze07@gmail.com
+            </p>
+          </div>
           <a
-            href="mailto:krishnajais945145@gmail.com?subject=Attendo%20Inquiry%20/%20Feedback"
+            href="mailto:krishnajais945145@gmail.com,rummerblaze07@gmail.com?subject=Attendo%20Inquiry%20/%20Feedback"
             className="mt-2 block w-full text-center py-1.5 rounded-lg bg-[#1d1d1f] hover:bg-[#2d2d30] text-white dark:bg-white dark:hover:bg-slate-200 dark:text-black text-[11px] font-semibold transition shadow-xs"
           >
-            Email Developer
+            Email Developers
           </a>
         </div>
       </div>

@@ -219,6 +219,27 @@ export const dataService = {
     }
   },
 
+  async updateUserPassword(newPassword) {
+    if (isSupabaseConfigured) {
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword
+      })
+      if (error) throw error
+      return data
+    } else {
+      const currentUser = loadLocal(STORAGE_KEYS.CURRENT_USER, null)
+      if (currentUser) {
+        const users = loadLocal(STORAGE_KEYS.USERS, [])
+        const idx = users.findIndex(u => u.id === currentUser.id)
+        if (idx !== -1) {
+          users[idx].password = newPassword
+          saveLocal(STORAGE_KEYS.USERS, users)
+        }
+      }
+      return { message: 'Password updated successfully' }
+    }
+  },
+
   async getCurrentProfile() {
     if (isSupabaseConfigured) {
       const { data: { user } } = await supabase.auth.getUser()
