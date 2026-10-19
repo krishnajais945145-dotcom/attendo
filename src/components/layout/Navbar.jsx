@@ -17,7 +17,7 @@ export function Navbar({ activeTab, setActiveTab, onOpenMobileMenu }) {
   }
 
   return (
-    <header className="sticky top-0 z-30 theme-navbar backdrop-blur-md border-b">
+    <header className="sticky top-0 z-30 theme-navbar backdrop-blur-md border-b shrink-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between gap-4">
         {/* Left: Mobile menu & Minimalist Logo */}
         <div className="flex items-center gap-3">
