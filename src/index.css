@@ -64,18 +64,16 @@ html, body {
   color: var(--text-primary) !important;
   transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
   letter-spacing: -0.012em;
-  overflow: hidden;
-  height: 100%;
-  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
-/* Atmospheric Aurora Beam in Dark Mode (Huly.io inspiration) - Fixed and stable */
+/* Atmospheric Aurora Beam in Dark Mode (Huly.io inspiration) */
 .dark-aurora-bg {
   display: none;
 }
 .dark .dark-aurora-bg, [data-theme="dark"] .dark-aurora-bg {
   display: block;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -89,9 +87,9 @@ html, body {
   filter: blur(40px);
 }
 
-/* Central vertical light ray like Huly.io - Fixed and stable */
+/* Central vertical light ray like Huly.io */
 .dark .huly-ray, [data-theme="dark"] .huly-ray {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);

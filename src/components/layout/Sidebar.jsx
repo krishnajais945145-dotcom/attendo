@@ -147,7 +147,7 @@ export function Sidebar({ activeTab, setActiveTab, mobileOpen, onCloseMobile, ov
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-60 shrink-0 h-full overflow-y-auto">
+      <aside className="hidden lg:block w-60 shrink-0 h-[calc(100vh-3.75rem)] sticky top-15">
         {sidebarContent}
       </aside>
 

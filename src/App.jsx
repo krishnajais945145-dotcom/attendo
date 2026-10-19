@@ -291,8 +291,8 @@ export function App() {
   const todayRecords = attendanceRecords.filter(r => r.date === todayDateStr)
 
   return (
-    <div className="h-screen h-[100dvh] relative overflow-hidden flex flex-col transition-colors duration-300">
-      {/* Huly Cosmic Aurora Glow & Ray in Dark Mode - Fixed and stable */}
+    <div className="min-h-screen relative overflow-x-hidden flex flex-col transition-colors duration-300">
+      {/* Huly Cosmic Aurora Glow & Ray in Dark Mode */}
       <div className="dark-aurora-bg" />
       <div className="huly-ray" />
 
@@ -303,7 +303,7 @@ export function App() {
         onOpenMobileMenu={() => setMobileMenuOpen(true)}
       />
 
-      <div className="flex-1 flex max-w-7xl w-full mx-auto relative z-10 overflow-hidden min-h-0">
+      <div className="flex-1 flex max-w-7xl w-full mx-auto relative z-10">
         {/* Responsive Desktop Sidebar & Mobile Drawer */}
         <Sidebar
           activeTab={activeTab}
@@ -313,8 +313,8 @@ export function App() {
           overallPercentage={stats?.totalConducted > 0 ? (stats?.overallPercentage ?? 0) : 0}
         />
 
-        {/* Main Content Area: Only tabs scroll smoothly while background stays stable */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-7 pb-28 sm:pb-32 overflow-y-auto relative z-10 overscroll-contain">
+        {/* Main Content Area with generous bottom padding for Floating Dock */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-7 pb-28 sm:pb-32 overflow-y-auto relative z-10">
           {/* TAB 1: DASHBOARD */}
           {activeTab === 'dashboard' && (
             <div className="space-y-5 animate-in fade-in duration-150">
