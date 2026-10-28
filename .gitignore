@@ -14,6 +14,7 @@ dist-ssr
 .env
 .env.*
 scratch/
+src/services/jarvis/
 
 # Editor directories and files
 .vscode/*
